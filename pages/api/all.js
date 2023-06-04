@@ -4,9 +4,11 @@ export default async function news(req, res) {
   const DATOCMS_TOKEN = process.env.DATOCMS_TOKEN;
   const client = buildClient({ apiToken: DATOCMS_TOKEN });
 
-  const records = await client.items.list();
+  let records = [];
+
+  for await (const record of client.items.listPagedIterator()) records.push(record);
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate');
-  res.json(records);
+  res.send(records);
 }

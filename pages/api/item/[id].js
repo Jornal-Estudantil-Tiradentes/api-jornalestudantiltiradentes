@@ -6,11 +6,13 @@ export default async function news(req, res) {
 
   const id = req.query.id;
 
-  const records = await client.items.list({
+  let records = [];
+
+  for await (const record of client.items.listPagedIterator({
     filter: {
       id: id,
-    },
-  });
+    }
+  })) records.push(record);
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate');
