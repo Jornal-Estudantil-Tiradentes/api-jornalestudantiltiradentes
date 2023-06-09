@@ -1,4 +1,4 @@
-import { buildClient } from '@datocms/cma-client-node';
+import { buildClient } from "@datocms/cma-client-node";
 
 export default async function news(req, res) {
   const DATOCMS_TOKEN = process.env.DATOCMS_TOKEN;
@@ -11,10 +11,11 @@ export default async function news(req, res) {
   for await (const record of client.items.listPagedIterator({
     filter: {
       id: id,
-    }
-  })) records.push(record);
+    },
+  }))
+    records.push(record);
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Cache-Control", "s-maxage=15, stale-while-revalidate");
   res.json(records);
 }
