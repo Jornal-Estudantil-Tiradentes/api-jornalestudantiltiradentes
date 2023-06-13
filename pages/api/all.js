@@ -10,6 +10,6 @@ export default async function news(req, res) {
     records.push(record);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Cache-Control", "s-maxage=15, stale-while-revalidate");
+  res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate");
   res.json(records);
 }
